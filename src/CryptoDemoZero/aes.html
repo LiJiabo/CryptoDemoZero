@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">AES</h1>
+			<a class="mui-icon mui-icon-info mui-pull-right" href="aesInfo.html"></a>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<h5>原文：</h5>
+				<div class="mui-input-row" style="margin:10px 5px">
+					<textarea id="textareaOriginal" rows="5" ></textarea>
+				</div>
+				<h5>密钥：</h5>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea id="textareaKey" rows="1"></textarea>
+				</div>
+				<h5>密文：</h5>
+				<div class="mui-input-row" style="margin:10px 5px">
+					<textarea id="textareaEncrypted" rows="5" ></textarea>
+				</div>
+				<button id="buttonEncrypt" type="button" class="mui-btn mui-btn-block">加密</button>
+				<button id="buttonDecrypt" type="button" class="mui-btn mui-btn-block">解密</button>
+				<button id="buttonClear" type="button" class="mui-btn mui-btn-block">清空</button>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<script src="js/crypto-js.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			/*
+			//AES加密
+			function encryptByDES(message, key){
+			    var keyHex = CryptoJS.enc.Utf8.parse(key);
+			    var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+			        mode: CryptoJS.mode.ECB,
+			        padding: CryptoJS.pad.Pkcs7
+			    });
+			    return encrypted.ciphertext.toString();
+			}
+			//AES解密
+			function decryptByDES(ciphertext, key){
+			    var keyHex = CryptoJS.enc.Utf8.parse(key);
+			    var decrypted = CryptoJS.DES.decrypt({
+			        ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+			    }, keyHex, {
+			        mode: CryptoJS.mode.ECB,
+			        padding: CryptoJS.pad.Pkcs7
+			    });
+			    var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+			    return result_value;
+			}
+			*/
+			//-------------------------------------------------
+			document.getElementById("buttonEncrypt").addEventListener('tap',function(event){//加密
+				var textOriginal = document.getElementById("textareaOriginal").value;
+				if(textOriginal==""||textOriginal==null||textOriginal==undefined)//判断是否为空
+					return;
+				var key = document.getElementById("textareaKey").value;
+				var result = CryptoJS.AES.encrypt(textOriginal,key).toString();
+				document.getElementById("textareaEncrypted").value = result;
+			});
+			document.getElementById("buttonDecrypt").addEventListener('tap',function(event){//解密
+				var textEncrypted = document.getElementById("textareaEncrypted").value;
+				if(textEncrypted==""||textEncrypted==null||textEncrypted==undefined)//判断是否为空
+					return;
+				var key = document.getElementById("textareaKey").value;
+				var result = CryptoJS.AES.decrypt(textEncrypted,key).toString(CryptoJS.enc.Utf8);
+				document.getElementById("textareaOriginal").value=result;
+			});
+			document.getElementById("buttonClear").addEventListener('tap',function(event){
+				document.getElementById("textareaEncrypted").value = "";
+				document.getElementById("textareaOriginal").value = "";
+				document.getElementById("textareaKey").value = "";
+			});
+		</script>
+	</body>
+
+</html>

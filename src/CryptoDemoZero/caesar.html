@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">凯撒密码</h1>
+			<a class="mui-icon mui-icon-info mui-pull-right" href="caesarInfo.html"></a>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<h5 class="mui-content-padded">原文：</h5>
+				<div class="mui-input-row">
+					<textarea id="textareaOriginal" rows="4" ></textarea>
+				</div>
+				<h5 class="mui-content-padded">偏移量：</h5>
+				<div class="mui-numbox" data-numbox-min='0' data-numbox-max='25'>
+					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					<input id="offset" class="mui-input-numbox" type="number" value="1" />
+					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				</div>
+				<h5 class="mui-content-padded">密文：</h5>
+				<div class="mui-input-row">
+					<textarea id="textareaEncrypted" rows="4" ></textarea>
+				</div>
+				<button id="encrypt" type="button" class="mui-btn mui-btn-block">加密</button>
+				<button id="decrypt" type="button" class="mui-btn mui-btn-block">解密</button>
+				<button id="clear" type="button" class="mui-btn mui-btn-block">清空</button>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			//mui.alert('','test',function(){});
+			mui.init()
+			document.getElementById('encrypt').addEventListener('tap',function(event){//--有--B--U--G--！！！（uryybjbeyq，helloworld）
+				var originalText = document.getElementById("textareaOriginal").value;
+				if(originalText == null || originalText == undefined || originalText == '')//判断是否为空
+					return;
+				var length = originalText.length;
+				var offset = document.getElementById("offset").value;//偏移量
+				var alphabet = new Array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+				var newStr=new Array;
+				for(i = 0; i < length; i++)
+				{
+					newStr.push(alphabet[(alphabet.indexOf(originalText[i]) + parseInt(offset)) % 26]);
+				}
+				document.getElementById("textareaEncrypted").value = newStr.join("");
+			});
+			document.getElementById("decrypt").addEventListener('tap',function(event){
+				var encryptedText = document.getElementById("textareaEncrypted").value;
+				if(encryptedText == null || encryptedText == undefined || encryptedText == '')//判断是否为空
+					return;
+				var length = encryptedText.length;
+				var offset = document.getElementById("offset").value;//偏移量
+				var alphabet = new Array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+				var newStr=new Array;
+				for(i = 0; i < length; i++)
+				{
+					newStr.push(alphabet[(alphabet.indexOf(encryptedText[i]) - parseInt(offset) + 52) % 26]);
+				}
+				document.getElementById("textareaOriginal").value = newStr.join("");
+			});
+			document.getElementById("clear").addEventListener('tap',function(event){
+				document.getElementById("textareaOriginal").value="";
+				document.getElementById("textareaEncrypted").value="";
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+	</head>
+
+	<body id="body">
+		<header class = "mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class = "mui-title">设置</h1>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<p>背景图像</p>
+				<div class="mui-card">
+					<div class="mui-card-content" >
+						<img id="img1" src="img/2.jpg" alt="" width="100%"/>
+					</div>
+					<div class="mui-card-footer">
+						<a id="a1" class="mui-card-link">使用</a>
+					</div>
+				</div>
+				<div class="mui-card">
+					<div class="mui-card-content" >
+						<img id="img2" src="img/iOS%205-2.png" alt="" width="100%"/>
+					</div>
+					<div class="mui-card-footer">
+						<a id="a2" class="mui-card-link">使用</a>
+					</div>
+				</div>
+				<input type="button" id="btn-clear" value="清空"/>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<script src="js/load-wallpaper.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			document.getElementById("a1").addEventListener("tap",function(event){
+				localStorage.setItem("wallpaper","img/2.jpg");
+			});
+			document.getElementById("a2").addEventListener("tap",function(event){
+				localStorage.setItem("wallpaper","img/iOS%205-2.png");
+			});
+			document.getElementById("btn-clear").addEventListener("tap",function(event){
+				localStorage.setItem("wallpaper","");
+			});
+		</script>
+	</body>
+
+</html>

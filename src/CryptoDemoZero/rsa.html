@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+		<style>
+			.p-text-display
+			{
+				word-wrap: break-word;
+			}
+		</style>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">RSA</h1>
+			<a class="mui-icon mui-icon-info mui-pull-right" href="rsaInfo.html"></a>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<h4>发送方</h4>
+				<h5>原文：</h5>
+				<div class="mui-input-row" style="margin:10px 5px">
+					<textarea id="textarea-original" rows="5" ></textarea>
+				</div>
+				<h5>公钥：</h5>
+				<div class="div-text-display"><p id="public-key-sender" class="p-text-display"></p></div>
+				<h5>私钥：</h5>
+				<div class="div-text-display"><p id="private-key-sender" class="p-text-display"></p></div>
+				<button id="btn-keygen" type="button" class="mui-btn mui-btn-block">生成</button>
+				<button id="btn-sender-key-clear" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>摘要算法：</h5>
+				<select id="sender-digest-algorithm" class="mui-btn mui-btn-block">
+					<option value="md5">MD5</option>
+					<option value="sha1">SHA-1</option>
+					<option value="sha256">SHA-256</option>
+					<option value="sha512">SHA-512</option>
+				</select>
+				<h5>摘要：</h5>
+				<div class="div-text-display"><p id="sender-digest" class="p-text-display"></p></div>
+				<button id="btn-gen-sender-digest" type="button" class="mui-btn mui-btn-block">生成摘要</button>
+				<button id="btn-clear-sender-digest" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>数字签名：</h5>
+				<div class="div-text-display"><p id="sender-signature" class="p-text-display"></p></div>
+				<button id="btn-sender-sign" type="button" class="mui-btn mui-btn-block">签名</button>
+				<button id="btn-clear-sender-signature" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>密文：</h5>
+				<div class="div-text-display"><p id="encrypted-sender" class="p-text-display"></p></div>
+				<button id="btn-encrypt" type="button" class="mui-btn mui-btn-block">加密</button>
+				<button id="btn-clear-encrypted" type="button" class="mui-btn mui-btn-block">清空</button>
+				<!-------------------------------------------------------------------------------->
+				<hr/>
+				<h4>证书</h4>
+				<h5>发送方公钥：</h5>
+				<div class="div-text-display"><p id="public-key-sender-copy" class="p-text-display"></p></div>
+				<h5>CA私钥：</h5>
+				<div class="div-text-display"><p id="private-key-ca" class="p-text-display"></p></div>
+				<h5>发送方公钥摘要：</h5>
+				<div class="div-text-display"><p id="public-key-digest-sender" class="p-text-display"></p></div>
+				<button id="btn-gen-ca-digest" type="button" class="mui-btn mui-btn-block">生成摘要</button>
+				<h5>CA签名：</h5>
+				<div class="div-text-display"><p id="signature-ca" class="p-text-display"></p></div>
+				<button id="btn-ca-sign" type="button" class="mui-btn mui-btn-block">生成CA签名</button>
+				<h5>CA公钥：</h5>
+				<div class="div-text-display"><p id="public-key-ca" class="p-text-display"></p></div>
+				<button id="btn-gen-ca-key" type="button" class="mui-btn mui-btn-block">生成CA密钥</button>
+				<h5>还原CA签名得到的摘要：</h5>
+				<div id="public-key-digest-recover" class="div-text-display"></div>
+				<h5>是否相等：</h5>
+				<div id="if-equal-ca" class="div-text-display"></div>
+				<button type="button" class="mui-btn mui-btn-block">验签</button>
+				<h5>根证书颁发机构：略</h5>
+				<!-------------------------------------------------------------------------------->
+				<hr/>
+				<h4>接收方</h4>
+				<h5>公钥：</h5>
+				<div class="div-text-display"><p id="public-key-recipient" class="p-text-display"></p></div>
+				<h5>私钥：</h5>
+				<div class="div-text-display"><p id="private-key-recipient" class="p-text-display"></p></div>
+				<button id="btn-gen-recipient-key" type="button" class="mui-btn mui-btn-block">生成</button>
+				<button id="btn-clear-recipient-key" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>还原的原文：</h5>
+				<div class="div-text-display"><p id="decrypted" class="p-text-display"></p></div>
+				<button id="btn-decrypt" type="button" class="mui-btn mui-btn-block">解密</button>
+				<button id="btn-clear-decrypted" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>还原的原文的摘要：</h5>
+				<div class="div-text-display"><p id="decrypted-digest" class="p-text-display"></p></div>
+				<button id="btn-gen-decrypted-digest" type="button" class="mui-btn mui-btn-block">生成摘要</button>
+				<button id="btn-clear-decrypted-digest" type="button" class="mui-btn mui-btn-block">清空</button>
+				<h5>数字签名：</h5>
+				<div class="div-text-display"><p id="sign-verify" class="p-text-display"></p></div>
+				<h5>从签名还原的摘要：</h5>
+				<div class="div-text-display"><p id="digest-sign-verify" class="p-text-display"></p></div>
+				<h5>是否相等：</h5>
+				<div class="div-text-display"><p id="recipient-if-equal" class="p-text-display"></p></div>
+				<button id="btn-recipient-verify" type="button" class="mui-btn mui-btn-block">验签</button>
+				<button id="btn-clear-recipient-verify" type="button" class="mui-btn mui-btn-block">清空</button>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<!--<script src="js/jquery-3.6.0.min.js"></script>-->
+		<script src="js/crypto-js.min.js"></script>
+		<script src="js/jsencrypt.min.js"></script>
+		<script src="js/rsa-keygen.js"></script>
+		<script src="js/jsrsasign-all-min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			function setSenderRSAKeys(privateKey,publicKey){//设置sender key用的回调函数
+				document.getElementById("public-key-sender").innerHTML=publicKey;
+				document.getElementById("private-key-sender").innerHTML=privateKey;
+				document.getElementById("public-key-sender-copy").innerHTML=publicKey;
+			}
+			document.getElementById("btn-keygen").addEventListener('tap',function(event){//生成发送方密钥
+				getRsaKeys(setSenderRSAKeys);
+			});
+			document.getElementById("btn-sender-key-clear").addEventListener('tap',function(event){//清空发送方密钥
+				document.getElementById("public-key-sender").innerHTML="";
+				document.getElementById("private-key-sender").innerHTML="";
+			});
+			function hashFactory(algorithm,originalText){//哈希简单工厂
+				var hash=undefined;
+				switch(algorithm)
+				{
+				case "md5":
+					hash=CryptoJS.MD5(originalText);
+					break;
+				case "sha1":
+					hash=CryptoJS.SHA1(originalText);
+					break;
+				case "sha256":
+					hash=CryptoJS.SHA256(originalText);
+					break;
+				case "sha512":
+					hash=CryptoJS.SHA512(originalText);
+					break;
+				default:
+				}
+				return hash;
+			}
+			document.getElementById("btn-gen-sender-digest").addEventListener('tap',function(event){//生成发送方原文摘要
+				var algorithm=document.getElementById("sender-digest-algorithm").value;
+				var originalText=document.getElementById("textarea-original").value;
+				var result=hashFactory(algorithm,originalText);
+				document.getElementById("sender-digest").innerHTML=result;
+			});
+			document.getElementById("btn-clear-sender-digest").addEventListener('tap',function(event){//清空发送方原文摘要
+				document.getElementById("sender-digest").innerHTML="";
+			});
+			function hashFuncFact(algorithm){
+				var func=undefined;
+				switch(algorithm)
+				{
+				case "md5":
+					func=CryptoJS.MD5;
+					break;
+				case "sha1":
+					func=CryptoJS.SHA1;
+					break;
+				case "sha256":
+					func=CryptoJS.SHA256;
+					break;
+				case "sha512":
+					func=CryptoJS.SHA512;
+					break;
+				default:
+				}
+				return func;
+			}
+			document.getElementById("btn-sender-sign").addEventListener('tap',function(event){//生成发送方签名
+				var sign = new JSEncrypt();
+				var privateKey=document.getElementById("private-key-sender").innerHTML;
+				if(privateKey=="")
+				{
+					mui.alert("请先生成私钥！","未生成私钥");
+					return;
+				}
+				sign.setPrivateKey(privateKey);
+				var algorithm=document.getElementById("sender-digest-algorithm").value;
+				var func=hashFuncFact(algorithm);
+				var signature=sign.sign(document.getElementById("textarea-original").value,func,algorithm);
+				document.getElementById("sender-signature").innerHTML=signature;
+				document.getElementById("sign-verify").innerHTML=signature;
+			});
+			document.getElementById("btn-clear-sender-signature").addEventListener('tap',function(event){//清空发送方签名
+				document.getElementById("sender-signature").innerHTML="";
+				document.getElementById("sign-verify").innerHTML="";
+			});
+			document.getElementById("btn-encrypt").addEventListener('tap',function(event){//加密
+				var originalText=document.getElementById("textarea-original").value;
+				var publicKeyRecipient=document.getElementById("public-key-recipient").innerHTML;
+				if(publicKeyRecipient=="")
+				{
+					mui.alert("请先生成接收方公钥！","未生成接收方公钥");
+					return;
+				}
+				var encrypt=new JSEncrypt();
+				encrypt.setPublicKey(publicKeyRecipient);
+				document.getElementById("encrypted-sender").innerHTML=encrypt.encrypt(originalText);
+			});
+			document.getElementById("btn-clear-encrypted").addEventListener('tap',function(event){//清空密文
+				document.getElementById("encrypted-sender").innerHTML="";
+			});
+			function setRecipientRSAKeys(privateKey,publicKey){//设置recipient key用的回调函数
+				document.getElementById("public-key-recipient").innerHTML=publicKey;
+				document.getElementById("private-key-recipient").innerHTML=privateKey;
+			}
+			document.getElementById("btn-gen-recipient-key").addEventListener('tap',function(event){//生成接收者密钥
+				getRsaKeys(setRecipientRSAKeys);
+			});
+			document.getElementById("btn-clear-recipient-key").addEventListener('tap',function(event){//清空接收者密钥
+				document.getElementById("public-key-recipient").innerHTML="";
+				document.getElementById("private-key-recipient").innerHTML="";
+			});
+			document.getElementById("btn-decrypt").addEventListener('tap',function(event){//解密
+				var encrypted=document.getElementById("encrypted-sender").innerHTML;
+				if(encrypted=="")
+				{
+					mui.alert("请先加密！","没有密文");
+					return;
+				}
+				var privateKeyRecipient=document.getElementById("private-key-recipient").innerHTML;
+				if(privateKeyRecipient=="")
+				{
+					mui.alert("请先生成接收方私钥！","没有接收方私钥");
+					return;
+				}
+				var decrypt=new JSEncrypt();
+				decrypt.setPrivateKey(privateKeyRecipient);
+				document.getElementById("decrypted").innerHTML=decrypt.decrypt(encrypted);
+			});
+			document.getElementById("btn-clear-decrypted").addEventListener('tap',function(event){//清空解密
+				document.getElementById("decrypted").innerHTML="";
+			});
+			document.getElementById("btn-gen-decrypted-digest").addEventListener('tap',function(event){//生成还原的原文的摘要
+				var decrypted=document.getElementById("decrypted").innerHTML;
+				if(decrypted=="")
+				{
+					mui.alert("请先生成还原的原文！","没有还原的原文");
+					return;
+				}
+				var algorithm=document.getElementById("sender-digest-algorithm").value;
+				var result=hashFactory(algorithm,decrypted);
+				document.getElementById("decrypted-digest").innerHTML=result;
+			});
+			document.getElementById("btn-clear-decrypted-digest").addEventListener('tap',function(event){//清空还原的原文的摘要
+				document.getElementById("decrypted-digest").innerHTML="";
+			});
+			document.getElementById("btn-recipient-verify").addEventListener('tap',function(event){//接收方验签
+				var publicKeySender=document.getElementById("public-key-sender").innerHTML;
+				if(publicKeySender=="")
+				{
+					mui.alert("请先生成发送方公钥！","没有发送方公钥");
+					return;
+				}
+				var decrypted=document.getElementById("decrypted").innerHTML;
+				if(decrypted=="")
+				{
+					mui.alert("请先生成还原的原文！","没有还原的原文");
+					return;
+				}
+				var signVerify=document.getElementById("sign-verify");
+				if(signVerify=="")
+				{
+					mui.alert("请先生成数字签名！","没有数字签名");
+					return;
+				}
+				var algorithm=document.getElementById("sender-digest-algorithm").value.toUpperCase();
+				var func=hashFuncFact(algorithm);
+				//var verify=new JSEncrypt();
+				//verify.setPublicKey(publicKeySender);
+				//var verified=verify.verify(decrypted,signVerify,func);
+				//mui.alert(String(func),"func");
+				//mui.alert(String(CryptoJS.MD5),"CryptoJS.MD5");
+				//document.getElementById("recipient-if-equal").innerHTML=verified;
+				//mui.alert(algorithm,"algorithm");
+				let signatureVf = new KJUR.crypto.Signature({alg:algorithm+"withRSA",prvkeypem:publicKeySender});
+				signatureVf.updateString(decrypted);
+				let verified = signatureVf.verify(b64tohex(signVerify));
+				document.getElementById("recipient-if-equal").innerHTML=verified;
+			});
+			function setCARSAKeys(privateKey,publicKey){//设置ca key用的回调函数
+				document.getElementById("public-key-ca").innerHTML=publicKey;
+				document.getElementById("private-key-ca").innerHTML=privateKey;
+			}
+			document.getElementById("btn-gen-ca-key").addEventListener('tap',function(event){//生成CA密钥
+				getRsaKeys(setCARSAKeys);
+			});
+			document.getElementById("btn-gen-ca-digest").addEventListener('tap',function(event){//生成发送方公钥摘要
+				var algorithm=document.getElementById("sender-digest-algorithm").value;
+				var originalText=document.getElementById("public-key-sender-copy").innerHTML;
+				var result=hashFactory(algorithm,originalText);
+				document.getElementById("public-key-digest-sender").innerHTML=result;
+			});
+			document.getElementById("btn-ca-sign").addEventListener('tap',function(event){//CA签名
+				var sign = new JSEncrypt();
+				var privateKey=document.getElementById("private-key-ca").innerHTML;
+				if(privateKey=="")
+				{
+					mui.alert("请先生成私钥！","未生成私钥");
+					return;
+				}
+				sign.setPrivateKey(privateKey);
+				var algorithm=document.getElementById("sender-digest-algorithm").value;
+				var func=hashFuncFact(algorithm);
+				var signature=sign.sign(document.getElementById("public-key-digest-sender").value,func,algorithm);
+				document.getElementById("signature-ca").innerHTML=signature;
+			});
+		</script>
+	</body>
+
+</html>

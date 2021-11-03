@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">RSA算法介绍</h1>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<p>
+					RSA是1977年由罗纳德·李维斯特（Ron Rivest）、
+					阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼
+					（Leonard Adleman）一起提出的。当时他们三人
+					都在麻省理工学院工作。RSA就是他们三人姓氏开头
+					字母拼在一起组成的。
+					（摘自百度百科，有改动）
+				</p>
+				<hr/>
+				<h3>
+					算法原理：
+				</h3>
+				<h4>1.简介</h4>
+				<p>
+					RSA是一种非对称加密算法，发送方（A）、接收方（B）都有自己的公钥和私钥。
+				</p>
+				<h4>2.加密解密</h4>
+				<p>
+					A给B发送时，A使用B的公钥加密，B收到后使用自己的私钥解密。
+				</p>
+				<h4>3.数字签名</h4>
+				<p>
+					为了保证发送者确实是A，A需要用自己的私钥进行签名。签名的过程实际上就是用
+					私钥对原文的摘要进行加密（不对原文进行签名是为了防止被公钥直接解密）。B收到后，
+					用A的公钥进行验签，与自己解密出的原文计算出的摘要进行对比。
+				</p>
+				<h4>4.数字证书</h4>
+				<p>
+					在此过程中，A需要将自己的公钥分发给B，为了防止它被篡改，需要有一个证书颁发机构
+					（CA）对其进行签名，这就是数字证书。而CA的公钥也要进行这一过程，所以通常证书
+					有一个分层结构，上级CA又对这个证书进行签名。而最高一级的证书就是根证书，它的
+					颁发机构就是根证书颁发机构（Root CA），通常是由操作系统内置的，不能随意修改。
+				</p>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

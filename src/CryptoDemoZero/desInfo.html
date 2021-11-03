@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/spacer.css"/>
+	</head>
+
+	<body id="body">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">DES算法介绍</h1>
+		</header>
+		
+		<div id="content" class="mui-content">
+			<div class="mui-content-padded">
+				<p>
+					DES（Data Encryption Standard，数据加密标准），
+					是一种使用密钥加密的块算法，分组加密算法，1977年被美
+					国联邦政府的国家标准局确定为联邦资料处理标准（FIPS），
+					并授权在非密级政府通信中使用，随后该算法在国际上广泛
+					流传开来。需要注意的是，在某些文献中，作为算法的DES
+					称为数据加密算法（Data Encryption Algorithm,DEA），
+					已与作为标准的DES区分开来。（摘自百度百科，有改动）
+				</p>
+				<hr/>
+				<p>
+					算法原理：
+				</p>
+				<p>
+					将数据分为64比特的组，每组单独加密。如果
+					要加密的明文较长，就要对DES加密进行迭代，而迭代的具
+					体方式称为模式。DES的基本结构称为Feistel网络，在Feistel网络
+					中，加密是多轮的循环。DES是一种16轮循环的Feistel网络。
+				</p>
+				<img src="img/屏幕截图%202021-10-01%20113817.png" style="width: 95%;"/>
+			</div>
+		</div>
+		
+		<script src="js/load-wallpaper.js"></script>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

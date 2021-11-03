@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+	<link href="css/spacer.css"/>
+</head>
+<body id="body">
+	<header class = "mui-bar mui-bar-nav">
+		<h1 class = "mui-title">CryptoDemoZero</h1>
+	</header>
+	
+	<nav class = "mui-bar mui-bar-tab">
+		<a class = "mui-tab-item mui-active" href="#home">
+			<span class = "mui-icon mui-icon-home"></span>
+			<span class = "mui-tab-label">首页</span>
+		</a>
+		<a class = "mui-tab-item" href="#my">
+			<span class = "mui-icon mui-icon-person"></span>
+			<span class = "mui-tab-label">我的</span>
+		</a>
+	</nav>
+	
+	<div id="content" class = "mui-content">
+		<div id="home" class="mui-control-content mui-active">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">简单替换密码</a>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="caesar.html">凯撒密码</a>
+						</li>
+					</ul>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						对称密码
+					</a>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="des.html">
+								DES
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="aes.html">
+								AES
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">
+						公钥密码
+					</a>
+					<ul class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="rsa.html">
+								RSA
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			
+		</div>
+		<div id="my" class="mui-control-content">
+			<ul class="mui-table-view">
+				<!--<li class="mui-table-view-divider"></li>-->
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="about.html">关于本应用</a>
+				</li>
+				
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" href="settings.html">设置</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<script src="js/load-wallpaper.js"></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+</body>
+</html>
